@@ -1,3 +1,6 @@
+// CONFIGURATION: Paste your Google Apps Script Web App URL here to connect the form to Google Sheets
+const GOOGLE_SHEET_APP_URL = "";
+
 document.addEventListener('DOMContentLoaded', () => {
   
   // ==========================================
@@ -167,16 +170,62 @@ document.addEventListener('DOMContentLoaded', () => {
       // Basic validation
       const name = document.getElementById('contact-name').value.trim();
       const phone = document.getElementById('contact-phone').value.trim();
+      const email = document.getElementById('contact-email') ? document.getElementById('contact-email').value.trim() : '';
       const service = document.getElementById('contact-service').value;
       const message = document.getElementById('contact-message').value.trim();
 
       if (name && phone && service && message) {
-        // Show success modal
-        modal.classList.add('modal--active');
-        document.body.classList.add('overflow-hidden');
-        
-        // Reset form inputs
-        form.reset();
+        // If Google Sheets App URL is configured, submit the data
+        if (GOOGLE_SHEET_APP_URL) {
+          const submitBtn = form.querySelector('button[type="submit"]');
+          const originalBtnText = submitBtn.innerHTML;
+          
+          // Disable button and show loading state
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = 'กำลังส่งข้อมูล...';
+          
+          // Create form params
+          const params = new URLSearchParams();
+          params.append('name', name);
+          params.append('phone', phone);
+          params.append('email', email);
+          params.append('service', service);
+          params.append('message', message);
+          
+          fetch(GOOGLE_SHEET_APP_URL, {
+            method: 'POST',
+            body: params,
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            mode: 'no-cors' // Google Apps Script Web App redirection requires no-cors mode
+          })
+          .then(() => {
+            // Re-enable button
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnText;
+            
+            // Show success modal
+            modal.classList.add('modal--active');
+            document.body.classList.add('overflow-hidden');
+            form.reset();
+          })
+          .catch((error) => {
+            console.error('Error sending to Google Sheet:', error);
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnText;
+            
+            // Fallback: Show success modal anyway to not break user flow
+            modal.classList.add('modal--active');
+            document.body.classList.add('overflow-hidden');
+            form.reset();
+          });
+        } else {
+          // Standard modal display if URL is not configured
+          modal.classList.add('modal--active');
+          document.body.classList.add('overflow-hidden');
+          form.reset();
+        }
       }
     });
 
