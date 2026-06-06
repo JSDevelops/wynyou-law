@@ -1,5 +1,5 @@
 // CONFIGURATION: Paste your Google Apps Script Web App URL here to connect the form to Google Sheets
-const GOOGLE_SHEET_APP_URL = "";
+const GOOGLE_SHEET_APP_URL = "https://script.google.com/macros/s/AKfycbzxHbYZiGaFFESgVPL7SCZVsze83IhFzOB5xD5yCTrp6yghDb2NYAIz-8WpeHbiPm8SDQ/exec";
 
 document.addEventListener('DOMContentLoaded', () => {
   
