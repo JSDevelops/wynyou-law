@@ -157,6 +157,16 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ==========================================
+  // PREVENT JUMP FOR PLACEHOLDER BLOG LINKS
+  // ==========================================
+  const blogLinks = document.querySelectorAll('a[id$="-blog"]');
+  blogLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+    });
+  });
+
+  // ==========================================
   // INTERACTIVE CONSULT FORM & SUCCESS MODAL
   // ==========================================
   const form = document.getElementById('law-consult-form');
