@@ -243,34 +243,4 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-
-  // ==========================================
-  // COOKIE CONSENT BANNER (PDPA)
-  // ==========================================
-  const cookieBanner = document.getElementById('cookie-consent-banner');
-  const acceptCookiesBtn = document.getElementById('btn-accept-cookies');
-  const declineCookiesBtn = document.getElementById('btn-decline-cookies');
-
-  if (cookieBanner && acceptCookiesBtn && declineCookiesBtn) {
-    const consent = localStorage.getItem('cookieConsent');
-    
-    // If no consent has been registered, show the banner
-    if (!consent) {
-      setTimeout(() => {
-        cookieBanner.classList.add('cookie-banner--active');
-      }, 1000); // 1 second delay for a smooth entry
-    }
-
-    // Accept cookies action
-    acceptCookiesBtn.addEventListener('click', () => {
-      localStorage.setItem('cookieConsent', 'accepted');
-      cookieBanner.classList.remove('cookie-banner--active');
-    });
-
-    // Decline cookies action
-    declineCookiesBtn.addEventListener('click', () => {
-      localStorage.setItem('cookieConsent', 'declined');
-      cookieBanner.classList.remove('cookie-banner--active');
-    });
-  }
 });
