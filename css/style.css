@@ -1742,3 +1742,76 @@ select.form-control {
     transform: translateY(0);
   }
 }
+
+/* ==========================================
+   FOOTER SOCIAL MEDIA LINKS
+   ========================================== */
+.footer__socials {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.footer__social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.95rem;
+  transition: var(--transition-fast);
+}
+
+.footer__social-link:hover {
+  color: var(--accent);
+}
+
+.footer__social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-light);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: var(--transition-smooth);
+}
+
+.footer__social-link--line:hover .footer__social-icon {
+  background: #06C755;
+  color: #FFFFFF;
+  border-color: #06C755;
+}
+
+.footer__social-link--facebook:hover .footer__social-icon {
+  background: #1877F2;
+  color: #FFFFFF;
+  border-color: #1877F2;
+}
+
+.footer__social-link--tiktok:hover .footer__social-icon {
+  background: #000000;
+  color: #FFFFFF;
+  border-color: #000000;
+}
+
+@media (max-width: 767px) {
+  .footer__socials {
+    flex-direction: row;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+  .footer__social-text {
+    display: none; /* Hide text on mobile, show only logo */
+  }
+  .footer__social-icon {
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+  }
+}
